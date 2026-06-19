@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CatHug - Enciclopédia Premium de Felinos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- RESET E VARIÁVEIS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #0b0c0e;
+            --card-bg: #141519;
+            --text-main: #f5f5f7;
+            --text-muted: #9fa0a6;
+            --accent-default: #ffb703; /* Amarelo dourado do SRD como padrão da identidade */
+            --font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- DECORAÇÃO DE FUNDO --- */
+        .bg-decor-main {
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 15rem;
+            color: rgba(255, 255, 255, 0.01);
+            z-index: -1;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* --- LAYOUT MINIMALISTA --- */
+        header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--accent-default);
+            transition: color 0.3s ease;
+        }
+
+        .counter-badge {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .counter-badge span {
+            color: var(--accent-default);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- HERO SECTION --- */
+        .welcome-hero {
+            text-align: center;
+            max-width: 700px;
+            margin: 40px auto 80px auto;
+        }
+
+        .welcome-hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .welcome-hero h1 span {
+            background: linear-gradient(45deg, #ffb703, #4cc9f0, #ff7a00, #e5a93b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* --- VITRINE DE RAÇAS (GRID) --- */
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        /* Card Customizado por Raça */
+        .breed-card {
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+
+        .breed-card .card-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .breed-card .card-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .breed-card .card-content {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .breed-card .breed-badge {
+            align-self: flex-start;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .breed-card h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .breed-card h2 .arrow {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            opacity: 0.6;
+        }
+
+        .breed-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .breed-card .card-footer-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.85rem;
+        }
+
+        .breed-card .card-footer-info span {
+            color: var(--text-muted);
+        }
+
+        .breed-card .card-footer-info strong {
+            color: var(--text-main);
+        }
+
+        /* --- TEMAS INDIVIDUAIS DOS CARDS (HOVER EFFECTS) --- */
+        
+        /* 1. Vira-Lata (SRD) */
+        .card-srd:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(255, 183, 3, 0.08);
+            border-color: rgba(255, 183, 3, 0.3);
+        }
+        .card-srd .breed-badge { background-color: rgba(255, 183, 3, 0.1); color: #ffb703; }
+        .card-srd:hover h2 { color: #ffb703; }
+
+        /* 2. Ragdoll */
+        .card-ragdoll:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(76, 201, 240, 0.08);
+            border-color: rgba(76, 201, 240, 0.3);
+        }
+        .card-ragdoll .breed-badge { background-color: rgba(76, 201, 240, 0.1); color: #4cc9f0; }
+        .card-ragdoll:hover h2 { color: #4cc9f0; }
+
+        /* 3. Persa Laranja */
+        .card-persa:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(255, 122, 0, 0.08);
+            border-color: rgba(255, 122, 0, 0.3);
+        }
+        .card-persa .breed-badge { background-color: rgba(255, 122, 0, 0.1); color: #ff7a00; }
+        .card-persa:hover h2 { color: #ff7a00; }
+
+        /* 4. Ashera */
+        .card-ashera:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(229, 169, 59, 0.08);
+            border-color: rgba(229, 169, 59, 0.3);
+        }
+        .card-ashera .breed-badge { background-color: rgba(229, 169, 59, 0.1); color: #e5a93b; }
+        .card-ashera:hover h2 { color: #e5a93b; }
+
+        /* Efeitos globais de transição interna ao passar o mouse */
+        .breed-card:hover .card-image-wrapper img {
+            transform: scale(1.05);
+        }
+        .breed-card:hover h2 .arrow {
+            transform: translateX(5px);
+            opacity: 1;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid #141519;
+        }
+
+        footer span {
+            color: var(--accent-default);
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 900px) {
+            .showcase-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            .welcome-hero h1 {
+                font-size: 2.3rem;
+            }
+            .breed-card .card-image-wrapper {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-decor-main">🐾</div>
+
+    <header>
+        <div class="logo" id="main-logo">Cat<span>Hug</span></div>
+        <div class="counter-badge">Especiais Disponíveis: <span id="counter-val">4</span></div>
+    </header>
+
+    <main>
+        <section class="welcome-hero">
+            <h1>Explore o Universo dos Felinos <span>Extraordinários</span></h1>
+            <p>Seja bem-vindo ao CatHug. Um espaço minimalista dedicado a catalogar a história, os cuidados, os preços e as maiores curiosidades das raças de gatos mais fascinantes do mundo.</p>
+        </section>
+
+        <section class="showcase-grid">
+
+            <a href="viralata.html" target="_blank" class="breed-card card-srd">
+                <div class="card-image-wrapper">
+                    <img src="viralata1.png" alt="Gato vira-lata carismático e dócil">
+                </div>
+                <div class="card-content">
+                    <div class="breed-badge">Campeão dos Corações</div>
+                    <h2>Vira-Lata (SRD) <span class="arrow">→</span></h2>
+                    <p>Únicos, surpreendentes e cheios de personalidade. Carregam a beleza de todas as misturas e um charme exclusivo que não se copia.</p>
+                    <div class="card-footer-info">
+                        <span>Origem: <strong>Global</strong></span>
+                        <span>Preço: <strong>Inestimável (Adoção)</strong></span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="ragdoll.html" target="_blank" class="breed-card card-ragdoll">
+                <div class="card-image-wrapper">
+                    <img src="ragdoll1.png.webp" alt="Gato Ragdoll relaxado">
+                </div>
+                <div class="card-content">
+                    <div class="breed-badge">Boneca de Pano</div>
+                    <h2>Ragdoll <span class="arrow">→</span></h2>
+                    <p>Famoso por relaxar totalmente o corpo ao ser pego no colo. Possui olhos azuis safira hipnotizantes e uma pelagem extremamente sedosa.</p>
+                    <div class="card-footer-info">
+                        <span>Origem: <strong>EUA</strong></span>
+                        <span>Média: <strong>R$ 4k - R$ 9k</strong></span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="persa.html" target="_blank" class="breed-card card-persa">
+                <div class="card-image-wrapper">
+                    <img src="persa0.png" alt="Gato Persa Laranja Real">
+                </div>
+                <div class="card-content">
+                    <div class="breed-badge">Realeza Felina</div>
+                    <h2>Persa Laranja <span class="arrow">→</span></h2>
+                    <p>A união perfeita de quietude aristocrática e cores quentes. Um felino calmo, de face plana, que adora uma rotina tranquila e mimos reais.</p>
+                    <div class="card-footer-info">
+                        <span>Origem: <strong>Pérsia</strong></span>
+                        <span>Média: <strong>R$ 3k - R$ 7k</strong></span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="ashera.html" target="_blank" class="breed-card card-ashera">
+                <div class="card-image-wrapper">
+                    <img src="ashera0.png" alt="Gato Ashera selvagem e raro">
+                </div>
+                <div class="card-content">
+                    <div class="breed-badge">Exclusividade Máxima</div>
+                    <h2>Gato Ashera <span class="arrow">→</span></h2>
+                    <p>O felino mais raro, caro e enigmático existente. Uma mescla espetacular de visual de leopardo selvagem com lealdade doméstica.</p>
+                    <div class="card-footer-info">
+                        <span>Origem: <strong>EUA</strong></span>
+                        <span>Estimado: <strong>Até R$ 600k</strong></span>
+                    </div>
+                </div>
+            </a>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>CatHug © 2026 — Desenvolvido com <span>🐾</span> para os apaixonados por doçura e elegância.</p>
+    </footer>
+
+    <script>
+        // Pequena interação divertida ao clicar no logo da Home
+        const logo = document.getElementById('main-logo');
+        const colors = ['#ffb703', '#4cc9f0', '#ff7a00', '#e5a93b'];
+        let colorIdx = 0;
+
+        logo.addEventListener('click', () => {
+            colorIdx = (colorIdx + 1) % colors.length;
+            logo.querySelector('span').style.color = colors[colorIdx];
+        });
+    </script>
+</body>
+</html>
