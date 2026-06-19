@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Especial: Gato Vira-lata (SRD)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- RESET E VARIÁVEIS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #121214;
+            --card-bg: #1a1a1e;
+            --text-main: #f5f5f7;
+            --text-muted: #a0a0a5;
+            --accent-color: #ffb703; /* Amarelo dourado representando a diversidade e energia do SRD */
+            --accent-soft: rgba(255, 183, 3, 0.1);
+            --font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- LAYOUT MINIMALISTA --- */
+        header {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        /* Badge fofa */
+        .cute-badge {
+            background-color: var(--accent-soft);
+            color: var(--accent-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 183, 3, 0.2);
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 span {
+            color: var(--accent-color);
+        }
+
+        .hero-content p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .quick-info {
+            display: flex;
+            gap: 20px;
+        }
+
+        .info-tag {
+            background-color: var(--card-bg);
+            padding: 15px 25px;
+            border-radius: 12px;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .info-tag small {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .info-tag strong {
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        /* Container da Imagem com detalhe interativo */
+        .image-container {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            cursor: pointer;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Detalhe decorativo fofo (Pegadas sutis ao fundo) */
+        .bg-decor {
+            position: absolute;
+            top: 20%;
+            right: -5%;
+            font-size: 10rem;
+            color: rgba(255, 255, 255, 0.02);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- GRID DE CONTEÚDO --- */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Pequeno detalhe fofo no canto do card ao passar o mouse */
+        .card::before {
+            content: '🐾';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 4rem;
+            opacity: 0;
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+
+        .card:hover::before {
+            opacity: 0.05;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2 .icon {
+            color: var(--accent-color);
+        }
+
+        .card p, .card ul {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .card ul li::before {
+            content: '•';
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid #1a1a1e;
+        }
+
+        footer span {
+            color: var(--accent-color);
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .image-container img {
+                height: 350px;
+            }
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-decor">🐾</div>
+
+    <header>
+        <div class="logo">Cat<span>Hug</span></div>
+        <div class="cute-badge" id="interactive-badge">Feito de puro amor ❤️</div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Vira-lata <span>SRD</span></h1>
+                <p>Únicos, surpreendentes e cheios de personalidade. Os gatos Sem Raça Definida (SRD) carregam a beleza de todas as misturas e um charme que não se copia.</p>
+                
+                <div class="quick-info">
+                    <div class="info-tag">
+                        <small>Origem</small>
+                        <strong id="txt-origem">Global</strong>
+                    </div>
+                    <div class="info-tag">
+                        <small>Preço estimado</small>
+                        <strong id="txt-preco">Inestimável (Adoção)</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="image-container" id="cat-gallery">
+                <img src="viralata1.png" alt="Gato Vira-lata Lindo" id="cat-img">
+            </div>
+        </section>
+
+        <section class="details-grid">
+            
+            <div class="card">
+                <h2><span class="icon">🏷️</span> Origem do Nome</h2>
+                <p>O termo informal "Vira-lata" vem do hábito dócil e curioso de animais de rua que buscavam alimento. Tecnicamente, são chamados de <strong>SRD (Sem Raça Definida)</strong>, uma definição que celebra a ausência de padrões rígidos e exalta a exclusividade de cada indivíduo.</p>
+            </div>
+
+            <div class="card">
+                <h2><span class="icon">📜</span> História</h2>
+                <p>A história dos felinos SRD se confunde com a própria história da domesticação dos gatos. Eles descendem dos gatos selvagens africanos que se aproximaram dos humanos há milhares de anos. Sem a intervenção seletiva humana para criar raças estéticas, eles evoluíram naturalmente através da seleção natural, tornando-se extremamente resistentes e adaptáveis.</p>
+            </div>
+
+            <div class="card">
+                <h2><span class="icon">✨</span> Temperamento</h2>
+                <p>Se há uma palavra para definir o vira-lata, é <strong>surpresa</strong>. Como não possuem padrão genético fixo, podem ser extremamente carinhosos e carentes, ou independentes e aventureiros. No entanto, a gratidão de um SRD adotado costuma se converter em um companheirismo profundamente leal e brincalhão.</p>
+            </div>
+
+            <div class="card">
+                <h2><span class="icon">🌱</span> Cuidados</h2>
+                <p>Graças à rica variabilidade genética (vigor híbrido), costumam ter uma saúde de ferro. Os cuidados principais envolvem:</p>
+                <ul>
+                    <li>Alimentação balanceada de alta qualidade.</li>
+                    <li>Vacinação anual e consultas de rotina.</li>
+                    <li>Enriquecimento ambiental (brinquedos e arranhadores) para gastar energia.</li>
+                    <li>Castração precoce para uma vida longa e segura.</li>
+                </ul>
+            </div>
+
+            <div class="card" style="grid-column: span 2;">
+                <h2><span class="icon">💡</span> Curiosidades Apaixonantes</h2>
+                <ul>
+                    <li><strong>DNA Exclusivo:</strong> É geneticamente impossível existir um gato vira-lata idêntico ao outro no mundo.</li>
+                    <li><strong>Cores Infinitas:</strong> Eles podem ser escaminhas, tigrados, brancos, pretos, "fraquinhas" ou os famosos laranjas.</li>
+                    <li><strong>Super Resistentes:</strong> Possuem menos propensão a doenças hereditárias do que raças puras.</li>
+                    <li><strong>Celebridades da Internet:</strong> Os gatos mais famosos e expressivos das redes sociais na maioria das vezes são amados SRDs.</li>
+                </ul>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>Desenvolvido com <span>🐾</span> para os amantes de felinos exclusivos.</p>
+    </footer>
+
+    <script>
+        // Mudar a imagem ao clicar (simulando uma galeria fofa de misturas)
+        const catImg = document.getElementById('cat-img');
+        const images = [
+            "viralata0.png", // Gato Tigrado
+            "viralata1.png", // Gato de Óculos/Estiloso
+            "viralata2.png"  // Gato Laranja
+        ];
+        let currentIndex = 0;
+
+        document.getElementById('cat-gallery').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % images.length;
+            catImg.style.opacity = 0;
+            setTimeout(() => {
+                catImg.src = images[currentIndex];
+                catImg.style.opacity = 1;
+            }, 200);
+        });
+
+        // Efeito fofo e interativo na Badge superior
+        const badge = document.getElementById('interactive-badge');
+        const cutePhrases = [
+            "Feito de puro amor ❤️",
+            "Adote um amigo! 🐱",
+            "Ronrom em alta frequência! ✨",
+            "O melhor gato do mundo!"
+        ];
+        let phraseIndex = 0;
+
+        badge.addEventListener('click', () => {
+            phraseIndex = (phraseIndex + 1) % cutePhrases.length;
+            badge.textContent = cutePhrases[phraseIndex];
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Especial: Gato Ashera</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- RESET E VARIÁVEIS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #0f1013;
+            --card-bg: #17191e;
+            --text-main: #f5f5f7;
+            --text-muted: #9ea0a5;
+            --accent-color: #e5a93b; /* Dourado selvagem/safári */
+            --accent-soft: rgba(229, 169, 59, 0.1);
+            --font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- LAYOUT MINIMALISTA --- */
+        header {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        /* Badge fofa */
+        .cute-badge {
+            background-color: var(--accent-soft);
+            color: var(--accent-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(229, 169, 59, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 span {
+            color: var(--accent-color);
+        }
+
+        .hero-content p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .quick-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .info-tag {
+            background-color: var(--card-bg);
+            padding: 15px 25px;
+            border-radius: 12px;
+            border-left: 3px solid var(--accent-color);
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .info-tag small {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .info-tag strong {
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        /* Container da Imagem */
+        .image-container {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            cursor: pointer;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease, opacity 0.3s ease;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Detalhe decorativo de fundo */
+        .bg-decor {
+            position: absolute;
+            top: 15%;
+            right: -5%;
+            font-size: 10rem;
+            color: rgba(255, 255, 255, 0.01);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- GRID DE CONTEÚDO --- */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Detalhe fofo sutil que surge no hover (Mini leopardo) */
+        .card::before {
+            content: '🐆';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 4rem;
+            opacity: 0;
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+
+        .card:hover::before {
+            opacity: 0.03;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2 .icon {
+            color: var(--accent-color);
+        }
+
+        .card p, .card ul {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .card ul li::before {
+            content: '•';
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid #17191e;
+        }
+
+        footer span {
+            color: var(--accent-color);
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .image-container img {
+                height: 350px;
+            }
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-decor">🐆</div>
+
+    <header>
+        <div class="logo">Cat<span>Hug</span></div>
+        <div class="cute-badge" id="interactive-badge">Um toque de safári ✨</div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Gato <span>Ashera</span></h1>
+                <p>O felino doméstico mais raro e enigmático do planeta. O Ashera une o porte majestoso e a pelagem exótica das savanas à elegância de um companheiro de alta linhagem.</p>
+                
+                <div class="quick-info">
+                    <div class="info-tag">
+                        <small>Origem</small>
+                        <strong id="txt-origem">Estados Unidos</strong>
+                    </div>
+                    <div class="info-tag">
+                        <small>Preço Estimado</small>
+                        <strong id="txt-preco">R$ 110.000 - R$ 600.000</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="image-container" id="cat-gallery">
+                <img src="ashera0.png" alt="Gato com padrão de manchas selvagens" id="cat-img">
+            </div>
+        </section>
+
+        <section class="details-grid">
+            
+            <div class="card">
+                <h2><span class="icon">🏷️</span> Origem do Nome</h2>
+                <p>Apresentado originalmente pela empresa de biotecnologia americana <em>Lifestyle Pets</em>, o nome <strong>Ashera</strong> foi inspirado na antiga divindade fenícia <em>Asherah</em> (ou Axera). Esta deusa era intimamente associada à fertilidade, à realeza e à soberania, o que reflete perfeitamente a presença imponente e o status de prestígio atribuído ao felino.</p>
+            </div>
+
+            <div class="card">
+                <h2><span class="icon">📜</span> História</h2>
+                <p>O Ashera surgiu nos anos 2000 cercado de mistério e fascínio. Ele foi promovido como um híbrido exclusivo de laboratório, combinando o DNA do Serval Africano, do Gato-Leopardo Asiático e de linhagens selecionadas de gatos domésticos comuns. Embora testes de mapeamento genético posteriores tenham gerado debates calorosos na comunidade felina sobre sua proximidade com a raça Savannah, ele se consolidou mundialmente como o sinônimo máximo de luxo felino.</p>
+            </div>
+
+            <div class="card">
+                <h2><span class="icon">✨</span> Temperamento</h2>
+                <p>Por trás do visual impressionante de um grande predador, o Ashera guarda um comportamento notavelmente leal e apegado à sua família. São animais extremamente inteligentes, curiosos e de energia vibrante. Adaptam-se bem à rotina da casa, convivem com outros animais de estimação e adoram jogos mentais, desafios e brincadeiras que simulem caça.</p>
+            </div>
+
+            <div class="card">
+                <h2><span class="icon">🌱</span> Cuidados</h2>
+                <p>Manter um animal deste porte e linhagem exige dedicação especializada:</p>
+                <ul>
+                    <li>Amplo enriquecimento ambiental verticalizado com prateleiras e arranhadores robustos.</li>
+                    <li>Dieta balanceada super premium rica em proteínas de alta digestibilidade.</li>
+                    <li>Caminhadas supervisionadas utilizando peitorais apropriados para gastar energia física.</li>
+                    <li>Acompanhamento veterinário constante focado em sua saúde estrutural e articular.</li>
+                </ul>
+            </div>
+
+            <div class="card" style="grid-column: span 2;">
+                <h2><span class="icon">💡</span> Curiosidades Surpreendentes</h2>
+                <ul>
+                    <li><strong>Porte Gigante:</strong> Ele figura entre as maiores variedades de gatos do mundo, podendo atingir facilmente até 12 a 15 kg e medir cerca de 1 metro de comprimento.</li>
+                    <li><strong>Edições Limitadas:</strong> No auge de seu lançamento oficial, a empresa criadora disponibilizava apenas cerca de 5 a 10 exemplares por ano para compradores selecionados ao redor do globo.</li>
+                    <li><strong>Versão Hipoalergênica:</strong> Existiam linhagens especiais do Ashera comercializadas especificamente para tutores que sofrem de alergia severa a felinos.</li>
+                    <li><strong>Aparência Estonteante:</strong> Suas orelhas grandes e pontiagudas somadas ao padrão único de rosetas e listras tornam sua silhueta inconfundível.</li>
+                </ul>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>Desenvolvido com <span>✨</span> para os fascinados pelas maravilhas e mistérios do mundo felino.</p>
+    </footer>
+
+    <script>
+        // Galeria interativa (Muda a imagem com um efeito suave de opacidade)
+        const catImg = document.getElementById('cat-img');
+        const images = [
+            "ashera0.png", // Olhar exótico focado
+            "ashera1.png", // Padrão de manchas tipo leopardo
+            "ashera2.png"  
+        ];
+        let currentIndex = 0;
+
+        document.getElementById('cat-gallery').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % images.length;
+            catImg.style.opacity = 0;
+            setTimeout(() => {
+                catImg.src = images[currentIndex];
+                catImg.style.opacity = 1;
+            }, 200);
+        });
+
+        // Interação com a Badge superior
+        const badge = document.getElementById('interactive-badge');
+        const cutePhrases = [
+            "Um toque de safári ✨",
+            "* Olhar hipnotizante de leopardo * 👁️",
+            "Miau... ou melhor, um rugido baixinho! 🐆",
+            "A maior raridade do mundo dos felinos."
+        ];
+        let phraseIndex = 0;
+
+        badge.addEventListener('click', () => {
+            phraseIndex = (phraseIndex + 1) % cutePhrases.length;
+            badge.textContent = cutePhrases[phraseIndex];
+        });
+    </script>
+</body>
+</html>

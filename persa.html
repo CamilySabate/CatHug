@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Especial: Gato Persa Laranja</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- RESET E VARIÁVEIS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #131316;
+            --card-bg: #1c1c21;
+            --text-main: #f5f5f7;
+            --text-muted: #a1a1aa;
+            --accent-color: #ff7a00; /* Laranja acobreado luxuoso */
+            --accent-soft: rgba(255, 122, 0, 0.1);
+            --font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- LAYOUT MINIMALISTA --- */
+        header {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        /* Badge fofa */
+        .cute-badge {
+            background-color: var(--accent-soft);
+            color: var(--accent-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 122, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 span {
+            color: var(--accent-color);
+        }
+
+        .hero-content p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .quick-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .info-tag {
+            background-color: var(--card-bg);
+            padding: 15px 25px;
+            border-radius: 12px;
+            border-left: 3px solid var(--accent-color);
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .info-tag small {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .info-tag strong {
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        /* Container da Imagem */
+        .image-container {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            cursor: pointer;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease, opacity 0.3s ease;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Detalhe decorativo de fundo */
+        .bg-decor {
+            position: absolute;
+            top: 15%;
+            right: -5%;
+            font-size: 10rem;
+            color: rgba(255, 255, 255, 0.012);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- GRID DE CONTEÚDO --- */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Detalhe fofo real que surge no hover (Uma coroa para a realeza Persa) */
+        .card::before {
+            content: '👑';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 4rem;
+            opacity: 0;
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+
+        .card:hover::before {
+            opacity: 0.03;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2 .icon {
+            color: var(--accent-color);
+        }
+
+        .card p, .card ul {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .card ul li::before {
+            content: '•';
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid #1c1c21;
+        }
+
+        footer span {
+            color: var(--accent-color);
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .image-container img {
+                height: 350px;
+            }
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-decor">👑</div>
+
+    <header>
+        <div class="logo">Cat<span>Hug</span></div>
+        <div class="cute-badge" id="interactive-badge">Sua Majestade Laranja 🍊</div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Persa <span>Laranja</span></h1>
+                <p>Uma obra-prima da natureza. O Persa Laranja une a opulência de uma pelagem longa e densa com a serenidade de uma das linhagens mais nobres e antigas do mundo.</p>
+                
+                <div class="quick-info">
+                    <div class="info-tag">
+                        <small>Origem</small>
+                        <strong id="txt-origem">Antiga Pérsia</strong>
+                    </div>
+                    <div class="info-tag">
+                        <small>Preço Médio</small>
+                        <strong id="txt-preco">R$ 3.000 - R$ 7.000</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="image-container" id="cat-gallery">
+                <img src="persa0.png" alt="Gato Persa Laranja Exuberante" id="cat-img">
+            </div>
+        </section>
+
+        <section class="details-grid">
+            
+            <div class="card">
+                <h2><span class="icon">🏷️</span> Origem do Nome</h2>
+                <p>O nome <strong>Persa</strong> faz referência direta ao seu local de descoberta, o antigo Império da Pérsia. A especificação <strong>Laranja</strong> (chamado oficialmente de <em>Red</em> ou *Flame* pelos criadores) deve-se ao gene ligado ao cromossomo X que dita essa tonalidade quente e apaixonante em seus pelos.</p>
+            </div>
+
+            <div class="card">
+                <h2><span class="icon">📜</span> História</h2>
+                <p>Os ancestrais do Persa foram trazidos da Pérsia (atual Irã) para a Europa em 1620 por Pietro della Valle. Rapidamente, sua pelagem exuberante conquistou a realeza britânica, tornando-se o favorito da Rainha Vitória. A variedade puramente laranja sempre esteve entre as mais cobiçadas nas primeiras exposições de gatos de Londres no século XIX.</p>
+            </div>
+
+            <div class="card">
+                <h2><span class="icon">✨</span> Temperamento</h2>
+                <p>Os Persas são os aristocratas do mundo felino: pacatos, silenciosos e extremamente doces. Eles preferem a segurança do chão robusto a saltar em armários altos. São gatos que apreciam rotina, adoram receber carinho e passam boa parte do dia repousando como verdadeiros reis em almofadas macias.</p>
+            </div>
+
+            <div class="card">
+                <h2><span class="icon">🌱</span> Cuidados</h2>
+                <p>Por ser uma raça exótica de luxo, exige atenção diária dedicada:</p>
+                <ul>
+                    <li>Escovação diária obrigatória para evitar nós em sua longa pelagem interna.</li>
+                    <li>Limpeza diária dos olhos, pois a estrutura facial plana (braquicefálica) propicia o lacrimejamento.</li>
+                    <li>Ambiente estritamente interno e climatizado, já que sofrem mais com o calor excessivo.</li>
+                    <li>Atenção especial com rações que auxiliem a evitar bolas de pelo no estômago.</li>
+                </ul>
+            </div>
+
+            <div class="card" style="grid-column: span 2;">
+                <h2><span class="icon">💡</span> Curiosidades Nobres</h2>
+                <ul>
+                    <li><strong>Olhos de Fogo:</strong> Diferente de outros gatos laranjas comuns, o padrão oficial da raça exige que o Persa Laranja possua olhos de cor cobre ou âmbar profundo e brilhante.</li>
+                    <li><strong>Inspiração na Mídia:</strong> Embora o Garfield seja um gato comum, o conceito de gato laranja preguiçoso e ranzinza que ama conforto descreve perfeitamente a rotina de um autêntico Persa.</li>
+                    <li><strong>Variações de Tom:</strong> O tom laranja pode variar desde um vermelho-tijolo sólido até padrões "Tabby" (tigrado) ou variações suaves como o Persa Creme.</li>
+                    <li><strong>Expressão Única:</strong> A disposição dos olhos grandes e focinho curto dá a eles uma expressão eternamente fofa e séria ao mesmo tempo.</li>
+                </ul>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>Desenvolvido com <span>👑</span> para os admiradores da realeza felina.</p>
+    </footer>
+
+    <script>
+        // Galeria interativa (Alterna imagens conceituais de gatos laranjas peludos e fofos)
+        const catImg = document.getElementById('cat-img');
+        const images = [
+            "persa0.png", // Persa / Gato peludo ruivo de perto
+            "persa1.png", // Outro ângulo cativante
+            "persa2.png"  
+        ];
+        let currentIndex = 0;
+
+        document.getElementById('cat-gallery').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % images.length;
+            catImg.style.opacity = 0;
+            setTimeout(() => {
+                catImg.src = images[currentIndex];
+                catImg.style.opacity = 1;
+            }, 200);
+        });
+
+        // Interação com a Badge superior
+        const badge = document.getElementById('interactive-badge');
+        const cutePhrases = [
+            "Sua Majestade Laranja 🍊",
+            "* Ronrom imperial ativado * 👑",
+            "Não perturbe meu sono real... 😴",
+            "Puro luxo em forma de algodão!"
+        ];
+        let phraseIndex = 0;
+
+        badge.addEventListener('click', () => {
+            phraseIndex = (phraseIndex + 1) % cutePhrases.length;
+            badge.textContent = cutePhrases[phraseIndex];
+        });
+    </script>
+</body>
+</html>

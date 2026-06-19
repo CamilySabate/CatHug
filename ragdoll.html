@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Especial: Gato Ragdoll</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- RESET E VARIÁVEIS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #111215;
+            --card-bg: #18191e;
+            --text-main: #f5f5f7;
+            --text-muted: #9fa0a6;
+            --accent-color: #4cc9f0; /* Azul turquesa magnético, cor dos olhos do Ragdoll */
+            --accent-soft: rgba(76, 201, 240, 0.1);
+            --font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- LAYOUT MINIMALISTA --- */
+        header {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        /* Badge fofa */
+        .cute-badge {
+            background-color: var(--accent-soft);
+            color: var(--accent-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(76, 201, 240, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 span {
+            color: var(--accent-color);
+        }
+
+        .hero-content p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .quick-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .info-tag {
+            background-color: var(--card-bg);
+            padding: 15px 25px;
+            border-radius: 12px;
+            border-left: 3px solid var(--accent-color);
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .info-tag small {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .info-tag strong {
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        /* Container da Imagem */
+        .image-container {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            cursor: pointer;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease, opacity 0.3s ease;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Detalhe decorativo de fundo */
+        .bg-decor {
+            position: absolute;
+            top: 15%;
+            right: -5%;
+            font-size: 10rem;
+            color: rgba(255, 255, 255, 0.015);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- GRID DE CONTEÚDO --- */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        /* Detalhe fofo invisível que aparece no hover */
+        .card::before {
+            content: '☁️';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 4rem;
+            opacity: 0;
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+
+        .card:hover::before {
+            opacity: 0.04;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2 .icon {
+            color: var(--accent-color);
+        }
+
+        .card p, .card ul {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .card ul li::before {
+            content: '•';
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid #18191e;
+        }
+
+        footer span {
+            color: var(--accent-color);
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .image-container img {
+                height: 350px;
+            }
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-decor">🐱</div>
+
+    <header>
+        <div class="logo">Cat<span>Hug</span></div>
+        <div class="cute-badge" id="interactive-badge">Toque para um abraço ☁️</div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Gato <span>Ragdoll</span></h1>
+                <p>Conhecido como o "gigante gentil" do mundo felino, o Ragdoll combina um porte imponente com uma pelagem incrivelmente macia e olhos azuis fascinantes.</p>
+                
+                <div class="quick-info">
+                    <div class="info-tag">
+                        <small>Origem</small>
+                        <strong id="txt-origem">Estados Unidos</strong>
+                    </div>
+                    <div class="info-tag">
+                        <small>Preço Médio</small>
+                        <strong id="txt-preco">R$ 4.000 - R$ 9.000</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="image-container" id="cat-gallery">
+                <img src="ragdoll1.png.webp" alt="Gato Ragdoll de olhos azuis" id="cat-img">
+            </div>
+        </section>
+
+        <section class="details-grid">
+            
+            <div class="card">
+                <h2><span class="icon">🏷️</span> Origem do Nome</h2>
+                <p>O nome <strong>Ragdoll</strong> significa literalmente "Boneca de Pano" em inglês. Esse nome peculiar foi escolhido devido à tendência única e encantadora que esses felinos têm de relaxar completamente a sua musculatura quando são segurados no colo, ficando maleáveis como um brinquedo de pelúcia.</p>
+            </div>
+
+            <div class="card">
+                <h2><span class="icon">📜</span> História</h2>
+                <p>A raça foi desenvolvida nos anos 1960 na Califórnia, EUA, pela criadora Ann Baker. Tudo começou com <em>Josephine</em>, uma gata branca de pelos longos e temperamento extraordinariamente dócil. Ann selecionou criteriosamente os descendentes de Josephine para fixar o tamanho grande, a pelagem densa e o comportamento amigável que hoje definem a raça.</p>
+            </div>
+
+            <div class="card">
+                <h2><span class="icon">✨</span> Temperamento</h2>
+                <p>Se você procura um gato ativo e distante, o Ragdoll é o oposto. Eles são extremamente pacíficos, afetuosos e dependentes de companhia humana. Costumam seguir seus tutores pela casa (comportamento de "gato-cachorro") e raramente usam suas garras, sendo ideais para famílias com crianças ou outros animais.</p>
+            </div>
+
+            <div class="card">
+                <h2><span class="icon">🌱</span> Cuidados</h2>
+                <p>Apesar do visual exuberante, a manutenção não é excessivamente complexa:</p>
+                <ul>
+                    <li>Escovação do pelo de duas a três vezes por semana para evitar nós.</li>
+                    <li>Por serem estritamente caseiros e dóceis, devem viver apenas em ambientes internos protegidos.</li>
+                    <li>Controle de peso, já que são propensos à preguiça e à obesidade.</li>
+                    <li>Acompanhamento cardiológico regular (exame para HCM hereditário).</li>
+                </ul>
+            </div>
+
+            <div class="card" style="grid-column: span 2;">
+                <h2><span class="icon">💡</span> Curiosidades Fascinantes</h2>
+                <ul>
+                    <li><strong>Olhos Safira:</strong> Um Ragdoll de raça pura sempre terá olhos azuis intensos. Se tiver outra cor, pode ser uma variação ou mestiço.</li>
+                    <li><strong>Nascem Brancos:</strong> Os filhotes nascem completamente brancos. Seus padrões de cores "point" (extremidades escuras) começam a aparecer após algumas semanas e mudam até os 3 ou 4 anos de idade.</li>
+                    <li><strong>Crescimento Lento:</strong> É uma das maiores raças domésticas. Eles demoram muito mais para amadurecer fisicamente do que outros gatos, atingindo o peso e tamanho final por volta dos 4 anos.</li>
+                    <li><strong>Super Silenciosos:</strong> Raramente miam alto; quando se comunicam, costumam emitir um som muito suave, quase como um murmúrio fofinho.</li>
+                </ul>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>Desenvolvido com <span>💙</span> para os apaixonados por doçura e elegância.</p>
+    </footer>
+
+    <script>
+        // Galeria interativa (Muda a imagem com um efeito suave de opacidade)
+        const catImg = document.getElementById('cat-img');
+        const images = [
+            "ragdoll0.png", // Olhos azuis foco close
+            "ragdoll1.png", // Ragdoll relaxado deitado
+            "ragdoll2.png"  
+        ];
+        let currentIndex = 0;
+
+        document.getElementById('cat-gallery').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % images.length;
+            catImg.style.opacity = 0;
+            setTimeout(() => {
+                catImg.src = images[currentIndex];
+                catImg.style.opacity = 1;
+            }, 200);
+        });
+
+        // Interação com a Badge superior
+        const badge = document.getElementById('interactive-badge');
+        const cutePhrases = [
+            "Toque para um abraço ☁️",
+            "* O Ragdoll derreteu no seu colo * 🥰",
+            "Purr... purr... 🐾",
+            "A mais pura fofura em forma de gato!"
+        ];
+        let phraseIndex = 0;
+
+        badge.addEventListener('click', () => {
+            phraseIndex = (phraseIndex + 1) % cutePhrases.length;
+            badge.textContent = cutePhrases[phraseIndex];
+        });
+    </script>
+</body>
+</html>
